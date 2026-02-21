@@ -91,7 +91,7 @@ class SearchProvider : ContentProvider() {
     }
 
     companion object {
-        private const val AUTHORITY = "top.rootu.lampa.atvsearch"
+        private const val AUTHORITY = "com.piblynk.lampa2.atvsearch"
         private const val SEARCH_SUGGEST = 1
 
         val queryProjection =

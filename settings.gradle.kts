@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LAMPA"
+rootProject.name = "LAMPA2"
 include(":app")
