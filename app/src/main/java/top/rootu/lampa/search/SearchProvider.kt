@@ -20,7 +20,6 @@ class SearchProvider : ContentProvider() {
         return true
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun query(
         uri: Uri,
         projection: Array<String>?,
@@ -57,7 +56,6 @@ class SearchProvider : ContentProvider() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun search(query: String?): Cursor {
         val matrixCursor = MatrixCursor(queryProjection)
         query ?: return matrixCursor
@@ -98,7 +96,7 @@ class SearchProvider : ContentProvider() {
         private const val AUTHORITY = "top.rootu.lampa.atvsearch"
         private const val SEARCH_SUGGEST = 1
 
-        val queryProjection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        val queryProjection =
             arrayOf(
                 BaseColumns._ID,
                 SearchDatabase.KEY_NAME,
@@ -115,15 +113,6 @@ class SearchProvider : ContentProvider() {
                 SearchDatabase.KEY_RATING_SCORE,
                 SearchDatabase.KEY_PRODUCTION_YEAR,
                 SearchDatabase.KEY_COLUMN_DURATION,
-                SearchDatabase.KEY_ACTION,
-                SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID,
-                SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA
-            ) else
-            arrayOf(
-                BaseColumns._ID,
-                SearchDatabase.KEY_NAME,
-                SearchDatabase.KEY_DESCRIPTION,
-                SearchDatabase.KEY_ICON,
                 SearchDatabase.KEY_ACTION,
                 SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID,
                 SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA

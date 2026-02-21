@@ -203,31 +203,20 @@ object Updater {
 
             downloadApk(destination, onProgress)
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                val uri = Uri.fromFile(destination)
-                val install = Intent(Intent.ACTION_VIEW)
-                install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                install.setDataAndType(uri, "application/vnd.android.package-archive")
-                if (install.resolveActivity(ctx.packageManager) != null)
-                    App.context.startActivity(install)
-                else
-                    App.toast(R.string.error_app_not_found)
-            } else {
-                val fileUri =
-                    FileProvider.getUriForFile(
-                        ctx,
-                        BuildConfig.APPLICATION_ID + ".update_provider",
-                        destination
-                    )
-                val install = Intent(Intent.ACTION_VIEW, fileUri)
-                install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                install.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                if (install.resolveActivity(ctx.packageManager) != null)
-                    ctx.startActivity(install)
-                else
-                    App.toast(R.string.error_app_not_found)
-            }
+            val fileUri =
+                FileProvider.getUriForFile(
+                    ctx,
+                    BuildConfig.APPLICATION_ID + ".update_provider",
+                    destination
+                )
+            val install = Intent(Intent.ACTION_VIEW, fileUri)
+            install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            install.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            if (install.resolveActivity(ctx.packageManager) != null)
+                ctx.startActivity(install)
+            else
+                App.toast(R.string.error_app_not_found)
         }
     }
 }

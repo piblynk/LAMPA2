@@ -92,24 +92,6 @@ object Helpers {
     }
 
     fun isConnected(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            isConnectedNewApi(context)
-        } else {
-            isConnectedOld(context)
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun isConnectedOld(context: Context): Boolean {
-        val connManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connManager.activeNetworkInfo
-        return networkInfo?.isConnected == true
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun isConnectedNewApi(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val capabilities = cm.getNetworkCapabilities(cm.activeNetwork)
         return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
@@ -118,28 +100,6 @@ object Helpers {
     fun dp2px(context: Context, dip: Float): Int {
         val dm = context.resources.displayMetrics
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, dm).toInt()
-    }
-
-    fun getWebViewVersion(context: Context): String {
-        return try {
-            var version = WebViewCompat.getCurrentWebViewPackage(context)?.versionName
-            if (version.isNullOrEmpty()) version = ""
-            version
-        } catch (_: Exception) {
-            ""
-        }
-    }
-
-    fun isWebViewAvailable(context: Context): Boolean {
-        return try {
-            context.packageManager.getApplicationInfo(
-                WebViewCompat.getCurrentWebViewPackage(
-                    context
-                )?.packageName!!, 0
-            ).enabled
-        } catch (_: Exception) {
-            Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT
-        }
     }
 
     // Helper function to serialize LampaCard to JSON
@@ -157,32 +117,8 @@ object Helpers {
      */
     val isTvContentProviderAvailable: Boolean
         get() {
-            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && // to simplify checks on Pre-Oreo devices
-                    isContentProviderAvailable(App.context, "android.media.tv")
+            return isContentProviderAvailable(App.context, "android.media.tv")
         }
-
-    /**
-     * Checks if the device supports specific TV channel content provider
-     */
-    val isTvChannelContentProviderAvailable: Boolean
-        get() {
-            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
-                    isContentProviderAvailable(App.context, "android.media.tv.channel")
-        }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun isTvChannelContentProviderAccessible(context: Context): Boolean {
-        return try {
-            val uri = TvContract.Channels.CONTENT_URI
-            context.contentResolver.query(uri, null, null, null, null)?.use {
-                true // Provider exists and is accessible
-            } == true
-        } catch (e: SecurityException) {
-            false // Missing permissions
-        } catch (e: Exception) {
-            false // Provider not available
-        }
-    }
 
     /**
      * Generic content provider availability checker

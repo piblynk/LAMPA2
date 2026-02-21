@@ -52,9 +52,7 @@ class SysView(override val mainActivity: MainActivity, override val viewResId: I
             isVerticalScrollBarEnabled = false
             isHorizontalScrollBarEnabled = false
             isScrollContainer = false
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
-            }
+            setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
         }
         setFocus()
 
@@ -71,12 +69,8 @@ class SysView(override val mainActivity: MainActivity, override val viewResId: I
             setRenderPriority(WebSettings.RenderPriority.HIGH)
             setNeedInitialFocus(false)
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            settings?.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            settings?.mediaPlaybackRequiresUserGesture = false
-        }
+        settings?.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        settings?.mediaPlaybackRequiresUserGesture = false
 
         browser?.webViewClient = object : WebViewClientCompat() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
@@ -111,7 +105,6 @@ class SysView(override val mainActivity: MainActivity, override val viewResId: I
             }
 
             // https://developer.android.com/reference/android/webkit/WebViewClient#shouldOverrideUrlLoading(android.webkit.WebView,%20android.webkit.WebResourceRequest)
-            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
             override fun shouldOverrideUrlLoading(
                 view: WebView,
                 request: WebResourceRequest
@@ -151,8 +144,7 @@ class SysView(override val mainActivity: MainActivity, override val viewResId: I
                 }
             }
 
-            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-            override fun onReceivedError( // Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+            override fun onReceivedError(
                 view: WebView,
                 request: WebResourceRequest,
                 error: WebResourceErrorCompat
@@ -187,32 +179,6 @@ class SysView(override val mainActivity: MainActivity, override val viewResId: I
                         } else
                             mainActivity.showUrlInputDialog(msg)
                     }
-                }
-            }
-
-            @Deprecated("Deprecated in Java")
-            override fun onReceivedError( // Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
-                view: WebView?,
-                errorCode: Int,
-                description: String?,
-                failingUrl: String?
-            ) {
-                debugLog("ERROR $errorCode $description on load $failingUrl")
-                if (failingUrl.toString().trimEnd('/').equals(MainActivity.LAMPA_URL, true)) {
-                    view?.loadUrl("about:blank")
-                    val reason = App.context.getNetworkErrorString(description.toString())
-                    val msg =
-                        "${App.context.getString(R.string.download_failed_message)} ${MainActivity.LAMPA_URL} – $reason"
-                    val noInternetErr = "net::ERR_INTERNET_DISCONNECTED"
-                    if (description == noInternetErr) {
-                        view?.apply {
-                            val html =
-                                createErrorHtmlPage(this.context.getNetworkErrorString(noInternetErr))
-                            loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
-                            invalidate()
-                        }
-                    } else
-                        mainActivity.showUrlInputDialog(msg)
                 }
             }
 
@@ -283,7 +249,6 @@ class SysView(override val mainActivity: MainActivity, override val viewResId: I
         browser?.resumeTimers()
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun evaluateJavascript(script: String, resultCallback: (String) -> Unit) {
         browser?.evaluateJavascript(script, resultCallback)
     }

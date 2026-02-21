@@ -3,10 +3,8 @@ package top.rootu.lampa
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
 import android.util.Log
 import android.webkit.JavascriptInterface
-import androidx.annotation.RequiresApi
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import com.google.gson.Gson
@@ -35,7 +33,6 @@ import top.rootu.lampa.helpers.Prefs.syncEnabled
 import top.rootu.lampa.helpers.Prefs.tmdbApiUrl
 import top.rootu.lampa.helpers.Prefs.tmdbImgUrl
 import top.rootu.lampa.net.Http
-import top.rootu.lampa.recs.RecsService
 import top.rootu.lampa.tmdb.TMDB
 import kotlin.system.exitProcess
 
@@ -430,11 +427,7 @@ class AndroidJS(private val mainActivity: MainActivity, private val browser: Bro
         // Force update Recs to filter viewed
         CoroutineScope(Dispatchers.Default).launch {
             delay(UPDATE_DELAY)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                LampaChannels.updateRecsChannel()
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                RecsService.updateRecs()
-            }
+            LampaChannels.updateRecsChannel()
         }
     }
 
@@ -483,7 +476,6 @@ class AndroidJS(private val mainActivity: MainActivity, private val browser: Bro
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @JavascriptInterface
     fun updateChannel(where: String?) {
         // https://github.com/yumata/lampa-source/blob/e5505b0e9cf5f95f8ec49bddbbb04086fccf26c8/src/app.js#L203

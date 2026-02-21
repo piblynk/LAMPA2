@@ -58,7 +58,6 @@ object ChannelManager {
     }
 
     @SuppressLint("RestrictedApi")
-    @RequiresApi(Build.VERSION_CODES.O)
     fun update(name: String, list: List<LampaCard>) {
         if (BuildConfig.DEBUG) Log.d(TAG, "update($name, ${list.size} items)")
         removeLostChannels()
@@ -86,21 +85,18 @@ object ChannelManager {
     }
 
     @SuppressLint("RestrictedApi")
-    @RequiresApi(Build.VERSION_CODES.O)
     fun deleteFromChannel(channelId: Long, movieId: String) {
         findProgramByMovieId(channelId, movieId)?.let { program ->
             removeProgram(program.id)
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun removeAll() {
         synchronized(lock) {
             ChannelHelper.list().forEach { ChannelHelper.rem(it) }
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateChannelMetadata(channel: Channel, displayName: String) {
         val channelValues = Channel.Builder()
             .setDisplayName(displayName)
@@ -115,7 +111,6 @@ object ChannelManager {
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun clearChannelPrograms(channelId: Long) {
         App.context.contentResolver.delete(
             TvContractCompat.buildPreviewProgramsUriForChannel(channelId),
@@ -124,7 +119,6 @@ object ChannelManager {
     }
 
     @SuppressLint("RestrictedApi")
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun addProgramsToChannel(channelId: Long, provName: String, list: List<LampaCard>) {
         list.forEachIndexed { index, card ->
             val program = createPreviewProgram(channelId, provName, card, list.size - index)
@@ -144,7 +138,6 @@ object ChannelManager {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun removeLostChannels() {
         synchronized(lock) {
             // Remove channels with null data

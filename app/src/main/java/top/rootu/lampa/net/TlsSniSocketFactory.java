@@ -127,24 +127,10 @@ public class TlsSniSocketFactory implements LayeredSocketFactory {
         // create and connect SSL socket, but don't do hostname/certificate verification yet
         @SuppressLint("SSLCertificateSocketFactoryCreateSocket") SSLSocket ssl = (SSLSocket) sslSocketFactory.createSocket(InetAddress.getByName(host), port);
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-            // enable TLSv1.2 only
-            ssl.setEnabledProtocols(TLS_V12_ONLY);
-        } else {
-            ssl.setEnabledProtocols(ssl.getSupportedProtocols());
-        }
+        ssl.setEnabledProtocols(ssl.getSupportedProtocols());
 
         // set up SNI before the handshake
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            sslSocketFactory.setHostname(ssl, host);
-        } else {
-            try {
-                java.lang.reflect.Method setHostnameMethod = ssl.getClass().getMethod("setHostname", String.class);
-                setHostnameMethod.invoke(ssl, host);
-            } catch (Exception e) {
-                Log.d(TlsSniSocketFactory.class.getSimpleName(), "SNI not usable: " + e);
-            }
-        }
+        sslSocketFactory.setHostname(ssl, host);
 
         // verify hostname and certificate
         SSLSession session = ssl.getSession();
