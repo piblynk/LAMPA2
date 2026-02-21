@@ -136,33 +136,18 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    def actKtxVer = '1.8.0' // 1.8.0 - last api16 compatible
-    //noinspection GradleDependency
-    implementation "androidx.activity:activity-ktx:$actKtxVer"
-    def appCompatVer = '1.6.1' // 1.6.1 - last api16 compatible
-    //noinspection GradleDependency
-    implementation "androidx.appcompat:appcompat:$appCompatVer"
-    def constraintVersion = '2.1.4' // 2.1.4 - last api16 compatible
-    //noinspection GradleDependency
-    implementation "androidx.constraintlayout:constraintlayout:${constraintVersion}"
-    def coreKtxVer = '1.12.0' // 1.12.0 - last api16 compatible
-    //noinspection GradleDependency
-    implementation "androidx.core:core-ktx:$coreKtxVer"
-    def lifecycleVersion = '2.6.2' // 2.6.2 - last api16 compatible
-    //noinspection GradleDependency
-    implementation "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
-    //noinspection GradleDependency
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+    implementation "androidx.activity:activity-ktx:1.13.0"
+    implementation "androidx.appcompat:appcompat:1.8.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.2.2"
+    implementation "androidx.core:core-ktx:1.19.0"
+    def lifecycleVersion = "2.11.0"
+    implementation "androidx.lifecycle:lifecycle-process:${lifecycleVersion}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycleVersion}"
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.recommendation:recommendation:1.0.0'
-    //noinspection GradleDependency
-    implementation 'androidx.tvprovider:tvprovider:1.0.0'
-    def vectordrawableVersion = '1.1.0' // 1.1.0 - last api16 compatible
-    //noinspection GradleDependency
-    implementation "androidx.vectordrawable:vectordrawable:${vectordrawableVersion}"
-    def webkitVersion = '1.8.0' // 1.8.0 - last api16 compatible
-    //noinspection GradleDependency
-    implementation "androidx.webkit:webkit:$webkitVersion"
+    implementation 'androidx.tvprovider:tvprovider:1.1.0'
+    implementation "androidx.vectordrawable:vectordrawable:1.2.0"
+    implementation "androidx.webkit:webkit:1.17.0"
     def glideVersion = '5.0.9'
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
     implementation("com.github.bumptech.glide:okhttp3-integration:${glideVersion}") {
@@ -171,26 +156,18 @@ dependencies {
     }
     ksp "com.github.bumptech.glide:ksp:${glideVersion}"
     implementation "com.github.bumptech.glide:annotations:${glideVersion}"
-    def muiVersion = '1.11.0' // 1.11.0 - last api16 compatible
-    //noinspection GradleDependency
+    def muiVersion = '1.14.0'
     implementation "com.google.android.material:material:${muiVersion}"
     def okhttpVersion = '5.5.0'
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:okhttp-dnsoverhttps:$okhttpVersion"
     implementation 'org.brotli:dec:0.1.2'
-    //noinspection GradleDependency
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kp_version" // or jdk7
-    def coroutinesVersion = '1.7.3' // 1.7.3 - last compatible with kp 1.8.22
-    //noinspection GradleDependency
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-    //noinspection GradleDependency 2.10.x thorow java.lang.VerifyError on api17
-    implementation 'com.google.code.gson:gson:2.9.1'
-    def lottieVersion = '6.4.1' // lottie loaders
-    //noinspection GradleDependency 6.6.2+ throw NullPointerException on build
-    implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0"
+    implementation 'com.google.code.gson:gson:2.14.0'
+    implementation "com.airbnb.android:lottie:6.7.1"
     implementation 'info.guardianproject.netcipher:netcipher:2.1.0' // SSL / TLS
     implementation 'junit:junit:4.13.2' // For Crosswalk compatibility
-    implementation 'org.conscrypt:conscrypt-android:2.5.3' // for TLS v1.3 on API < 29
-    //noinspection GradleDependency 1.8.1 fails on build with old gradle
-    implementation 'org.mozilla:rhino:1.7.15' // JavaScript to run PAC file to get correct proxies
+    implementation 'org.conscrypt:conscrypt-android:2.7.0' // for TLS v1.3 on API < 29
+    implementation 'org.mozilla:rhino:1.9.1' // JavaScript to run PAC file to get correct proxies
 }
