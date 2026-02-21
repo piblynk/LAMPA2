@@ -32,7 +32,7 @@ android {
     namespace = "top.rootu.lampa"
 
     defaultConfig {
-        applicationId = "top.rootu.lampa"
+        applicationId = "com.piblynk.lampa2"
         minSdk = 28
         targetSdk = 36
         versionCode = getVersionCode(project)
