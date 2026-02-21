@@ -10,19 +10,12 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="show_menu">Open menu</string>
-    <string name="change_engine">Change Browser</string>
-    <string name="change_engine_title">Choose Browser</string>
-    <string name="close_menu_title">Close This Menu</string>
+    <string name="close_menu_title">Close</string>
     <string name="change_url_title">Change Lampa URL</string>
-    <string name="engine_crosswalk_obsolete">Crosswalk (XWalkLib) - obsolete</string>
-    <string name="engine_crosswalk">Crosswalk (XWalkLib)</string>
-    <string name="engine_webkit">Android System WebView</string>
-    <string name="engine_active">current</string>
-    <string name="menu_title">Options Menu</string>
-    <string name="change_url_press_back">To change the address, press and hold the "Back" button\nor press the "Menu" button</string>
+    <string name="menu_title">Select action</string>
     <string name="error_app_not_found">No matching applications found</string>
     <string name="exit">Quit the Application</string>
-    <string name="input_url_title">Please enter Lampa URL</string>
+    <string name="input_url_title">Enter Lampa URL</string>
     <string name="select_player">Player selection</string>
     <string name="select_player_reset">The selected player has been reset</string>
     <string name="not_found_speech">Failed to start voice input</string>
@@ -37,33 +30,13 @@
     <string name="update_new_version">New version found</string>
     <string name="update_loading">Downloading the update…</string>
     <string name="use_as_default">Remember choice</string>
-    <string name="startup_not_found_title">Crosswalk Project Service Not Found</string>
-    <string name="startup_not_found_message">APP_NAME requires the Crosswalk Project Service to work. Please install it first, then restart APP_NAME.</string>
-    <string name="startup_older_version_title">New Crosswalk Project Service Required</string>
-    <string name="startup_older_version_message">The version of the Crosswalk Project Service on this system must be updated. Please install it from the app store, then restart APP_NAME.</string>
-    <string name="startup_newer_version_title">Incompatible Crosswalk Project Service</string>
-    <string name="startup_newer_version_message">APP_NAME is not compatible with the installed version of the Crosswalk Project Service.</string>
-    <string name="startup_architecture_mismatch_title">Mismatch of CPU Architecture</string>
-    <string name="startup_architecture_mismatch_message">The Crosswalk Project Service must be updated to match the CPU architecture of the device. Please install it, then restart APP_NAME.</string>
-    <string name="crosswalk_install_title">Crosswalk Project Install</string>
     <string name="download_failed_message">Download failed</string>
-    <string name="download_progress_message">Downloading the Crosswalk Project Service from remote host…</string>
-    <string name="select_store_message">Please install the Crosswalk Project Service from STORE_NAME</string>
-    <string name="unsupported_store_message">The application stores on your device don\'t support Crosswalk Project Service. Please download Crosswalk Project Service manually from this website (https://github.com/lampa-app/LAMPA/releases/tag/1.1.0).</string>
-    <string name="xwalk_download_crosswalk">Direct Download</string>
-    <string name="xwalk_get_crosswalk">Get Crosswalk</string>
-    <string name="xwalk_cancel">Cancel</string>
-    <string name="xwalk_continue">Continue</string>
-    <string name="xwalk_close">Close</string>
-    <string name="xwalk_retry">Retry</string>
-    <string name="xwalk_market_crosswalk" translatable="false">Google Play</string>
-    <string name="xwalk_apk_link">https://github.com/lampa-app/LAMPA/releases/download/1.1.0/XWalkRuntimeLib_%s.apk</string>
     <!--Search-->
     <string name="open_lampa">open lampa</string>
     <string name="open_settings">open lampa settings</string>
     <string name="lampa_suxx">lampa suxx</string>
     <string name="series">TV Series</string>
-    <string name="shortyear" />
+    <string name="shortyear">y.</string>
     <!--Channels-->
     <string name="ch_recs">Recommended</string>
     <string name="ch_liked">Liked</string>

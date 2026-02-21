@@ -1,6 +1,6 @@
 <resources>
     <string name="no_activity_found">​​没有应用程序可以打开此类链接。</string>
-    <string name="no_player_activity_found">​​未找到匹配的播放器。请从 Google Play 商店或任何其他来源安装播放器。我们推荐 Just Player、Vimu Media Player、VLC。</string>
+    <string name="no_player_activity_found">​​未找到匹配的播放器。请从 Google Play 商店或任何其他来源安装播放器。我们推荐 Just Player, Vimu Media Player, VLC。</string>
     <string name="no_torrent_activity_found">​​没有应用程序可以打开 torrent 链接。请安装 TorrServe 或任何其他支持 torrent 的应用程序。</string>
     <string name="no_youtube_activity_found">​​没有应用程序可以打开 YouTube 链接。请安装 YouTube 应用。</string>
     <string name="no_launch_player">所选播放器不支持该视频</string>
@@ -8,16 +8,9 @@
     <string name="cancel">取消</string>
     <string name="save">保存</string>
     <string name="show_menu">打开菜单</string>
-    <string name="change_engine">更改浏览器</string>
-    <string name="change_engine_title">选择浏览器</string>
     <string name="close_menu_title">关闭菜单</string>
     <string name="change_url_title">更改网址</string>
-    <string name="engine_crosswalk_obsolete">Crosswalk (XWalkLib) - 过时的</string>
-    <string name="engine_crosswalk">Crosswalk (XWalkLib)</string>
-    <string name="engine_webkit">Android System WebView</string>
-    <string name="engine_active">当前的</string>
     <string name="menu_title">选项菜单</string>
-    <string name="change_url_press_back">如果需要更改地址，请按住“返回”按钮\或按“菜单”按钮</string>
     <string name="error_app_not_found">​​未找到匹配的应用程序</string>
     <string name="exit">退出应用程序</string>
     <string name="input_url_title">输入你的LAMPA网址</string>
@@ -35,26 +28,7 @@
     <string name="update_new_version">找到新版本</string>
     <string name="update_loading">加载更新…</string>
     <string name="use_as_default">记住选择</string>
-    <string name="startup_not_found_title">未找到 Crosswalk</string>
-    <string name="startup_not_found_message">APP_NAME 需要 Crosswalk 才能运行。 请先安装它，然后重新启动 APP_NAME。</string>
-    <string name="startup_older_version_title">需要新的 Crosswalk</string>
-    <string name="startup_older_version_message">必须更新此系统上的 Crosswalk 版本。 请从应用商店安装它，然后重新启动 APP_NAME。</string>
-    <string name="startup_newer_version_title">不兼容的 Crosswalk</string>
-    <string name="startup_newer_version_message">APP_NAME 与安装的 Crosswalk 版本不兼容</string>
-    <string name="startup_architecture_mismatch_title">CPU 架构不匹配</string>
-    <string name="startup_architecture_mismatch_message">Crosswalk 必须更新以匹配设备的 CPU 架构。 请安装它并重新启动 APP_NAME。</string>
-    <string name="crosswalk_install_title">Crosswalk 项目安装</string>
     <string name="download_failed_message">下载失败</string>
-    <string name="download_progress_message">正在从远程主机下载 Crosswalk...</string>
-    <string name="select_store_message">请安装 STORE_NAME 的 Crosswalk</string>
-    <string name="unsupported_store_message">您设备上的应用商店不支持 Crosswalk。 请从该网站手动下载 Crosswalk (https://github.com/lampa-app/LAMPA/releases/tag/1.1.0)。</string>
-    <string name="xwalk_download_crosswalk">直接下载</string>
-    <string name="xwalk_get_crosswalk">得到 Сrosswalk</string>
-    <string name="xwalk_cancel">取消</string>
-    <string name="xwalk_continue">继续</string>
-    <string name="xwalk_close">关闭</string>
-    <string name="xwalk_retry">重试</string>
-    <string name="xwalk_apk_link">https://ghproxy.com/https://github.com/lampa-app/LAMPA/releases/download/1.1.0/XWalkRuntimeLib_%s.apk</string>
     <!--Search-->
     <string name="open_lampa">open lampa</string>
     <string name="open_settings">open lampa settings</string>
