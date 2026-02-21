@@ -14,10 +14,10 @@ import android.os.LocaleList
 import android.os.Process
 import android.util.Log
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import android.view.WindowManager
-import androidx.core.content.ContextCompat
+import androidx.core.content.pm.PackageInfoCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,21 +32,16 @@ import kotlin.system.exitProcess
 
 
 val Context.isAmazonDev: Boolean
-    get() {
-        return packageManager.hasSystemFeature("amazon.hardware.fire_tv")
-    }
+    get() = packageManager.hasSystemFeature("amazon.hardware.fire_tv")
 
 val Context.isGoogleTV: Boolean // wide posters
-    get() {
-        return packageManager.hasSystemFeature("com.google.android.tv") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-    }
+    get() = packageManager.hasSystemFeature("com.google.android.tv")
 
 val Context.isTvBox: Boolean
     get() {
         val pm = packageManager
         // TV for sure
-        val uiModeManager =
-            getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+        val uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
         if (uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION) {
             return true
         }
@@ -54,10 +49,8 @@ val Context.isTvBox: Boolean
             return true
         }
         // Missing Files app (DocumentsUI) means box (some boxes still have non functional app or stub)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (!hasSAFChooser(pm)) {
-                return true
-            }
+        if (!hasSAFChooser(pm)) {
+            return true
         }
         // Legacy storage no longer works on Android 11 (level 30)
         if (Build.VERSION.SDK_INT < 30) {
@@ -86,25 +79,6 @@ val Context.isTvBox: Boolean
  *
  * @param showLogs Controls whether to display detailed logs in the crash activity.
  *                 If null, uses default behavior from app configuration.
- *
- * Typical usage:
- * ```
- * class MyApp : Application() {
- *     override fun onCreate() {
- *         super.onCreate()
- *         handleUncaughtException(showLogs = BuildConfig.DEBUG)
- *     }
- * }
- * ```
- *
- * The crash report includes:
- * - Device model and Android version
- * - Main exception stack trace
- * - Root cause stack trace (if available)
- * - Thread information
- *
- * Note: Call this in your Application class's onCreate() for global exception handling.
- * Remember to initialize your crash reporting tools (Sentry, Crashlytics) before this.
  */
 fun Application.handleUncaughtException(showLogs: Boolean? = null) {
     Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
@@ -114,10 +88,14 @@ fun Application.handleUncaughtException(showLogs: Boolean? = null) {
          */
         val errorReport = StringBuilder()
 
-        @Suppress("DEPRECATION")
         val version = try {
-            val pInfo = App.context.packageManager.getPackageInfo(App.context.packageName, 0)
-            "${pInfo.versionName} (${pInfo.versionCode})"
+            val pInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
+            } else {
+                @Suppress("DEPRECATION")
+                packageManager.getPackageInfo(packageName, 0)
+            }
+            "${pInfo.versionName} (${PackageInfoCompat.getLongVersionCode(pInfo)})"
         } catch (_: Exception) {
             "Unknown"
         }
@@ -162,7 +140,6 @@ fun Application.handleUncaughtException(showLogs: Boolean? = null) {
 
             Process.killProcess(Process.myPid())
             exitProcess(2)
-
         }
     }
 }
@@ -170,74 +147,24 @@ fun Application.handleUncaughtException(showLogs: Boolean? = null) {
 /**
  * Hides system UI (status bar and navigation bar) for immersive mode.
  *
- * This function provides a consistent immersive experience across all Android versions:
+ * This function provides a consistent immersive experience:
  * - On Android R (API 30+) uses modern WindowInsetsController
- * - On older versions uses deprecated but reliable SYSTEM_UI_FLAG approach
+ * - On older versions uses reliable SYSTEM_UI_FLAG approach
  *
  * Features:
  * - Transient bars that appear on swipe and auto-hide (BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE)
  * - Translucent navigation bar (80% black)
  * - Proper layout handling behind system bars
- * - Sticky immersive mode on KitKat+
+ * - Sticky immersive mode
  *
  * Must be called after setContentView().
- *
- * Usage:
- * ```
- * override fun onWindowFocusChanged(hasFocus: Boolean) {
- *     super.onWindowFocusChanged(hasFocus)
- *     if (hasFocus) hideSystemUI()
- * }
- * ```
- *
- * Or call in onCreate() after setContentView():
- * ```
- * override fun onCreate(savedInstanceState: Bundle?) {
- *     super.onCreate(savedInstanceState)
- *     setContentView(R.layout.activity_main)
- *     hideSystemUI()
- * }
- * ```
  */
 fun Activity.hideSystemUI() {
-    when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
-            window?.insetsController?.let { controller ->
-                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-                window?.navigationBarColor = ContextCompat.getColor(this, R.color.black_80)
-                controller.hide(WindowInsets.Type.systemBars())
-            }
-        }
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> {
-            @Suppress("DEPRECATION")
-            window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-            @Suppress("DEPRECATION")
-            window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-        }
-        else -> {
-            // For Android 4.1 (API 16) to 4.3 (API 18)
-            @Suppress("DEPRECATION")
-            window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
-//                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN)
-            // Set up a touch listener to hide the system UI again after interaction
-//            @Suppress("DEPRECATION")
-//            window?.decorView?.setOnSystemUiVisibilityChangeListener { visibility ->
-//                if (visibility and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION == 0) {
-//                    // System UI became visible - hide it again after a delay
-//                    window?.decorView?.postDelayed({
-//                        @Suppress("DEPRECATION")
-//                        window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
-//                                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                                or View.SYSTEM_UI_FLAG_FULLSCREEN)
-//                    }, 2000) // 2 seconds delay before re-hiding
-//                }
-//            }
-        }
+    val window = this.window ?: return
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+    WindowInsetsControllerCompat(window, window.decorView).apply {
+        systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        hide(WindowInsetsCompat.Type.systemBars())
     }
 }
 
@@ -249,20 +176,9 @@ fun Activity.hideSystemUI() {
  * Usage: `activity.showSystemUI()`
  */
 fun Activity.showSystemUI() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        // show app content in fullscreen, i. e. behind the bars when they are shown (alternative to
-        // deprecated View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION and View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-        window?.setDecorFitsSystemWindows(false)
-        // finally, show the system bars
-        window?.insetsController?.show(WindowInsets.Type.systemBars())
-    } else {
-        // Shows the system bars by removing all the flags
-        // except for the ones that make the content appear under the system bars.
-        @Suppress("DEPRECATION")
-        window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-    }
+    val window = this.window ?: return
+    WindowCompat.setDecorFitsSystemWindows(window, true)
+    WindowInsetsControllerCompat(window, window.decorView).show(WindowInsetsCompat.Type.systemBars())
 }
 
 /**
@@ -272,14 +188,6 @@ fun Context.copyToClipBoard(errorData: String) {
     try {
         val clipData = ClipData.newPlainText("label", errorData)
         val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//        // Handle different Android versions
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-//            // Android 12+ with clipboard access check
-//            if (!clipboardManager.isSetPrimaryClipAllowed) {
-//                Log.w("Clipboard", "Setting clipboard is not allowed")
-//                return
-//            }
-//        }
         clipboardManager.setPrimaryClip(clipData)
     } catch (e: Exception) {
         Log.e("Clipboard", "Failed to copy to clipboard", e)
@@ -297,12 +205,7 @@ fun Context.setLanguage(langCode: String = appLang): Context {
 
     return try {
         val config = Configuration(resources.configuration).apply {
-            @Suppress("DEPRECATION")
-            when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> setLocales(LocaleList(locale))
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 -> setLocale(locale)
-                else -> this.locale = locale
-            }
+            setLocales(LocaleList(locale))
         }
         when (this) {
             // Application needs direct config update
@@ -314,16 +217,10 @@ fun Context.setLanguage(langCode: String = appLang): Context {
             }
             // Activities need new context
             else -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    createConfigurationContext(config).apply {
-                        // Required for API 25+ to fully apply changes
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                            @Suppress("DEPRECATION")
-                            resources.updateConfiguration(config, resources.displayMetrics)
-                        }
-                    }
-                } else {
-                    this // TODO("VERSION.SDK_INT < JELLY_BEAN_MR1")
+                createConfigurationContext(config).apply {
+                    // Required for API 25+ to fully apply changes
+                    @Suppress("DEPRECATION")
+                    resources.updateConfiguration(config, resources.displayMetrics)
                 }
             }
         }
@@ -340,18 +237,13 @@ private fun parseLocale(langCode: String): Locale? {
         else
             langCode.trim().split("-", "_").let { parts ->
                 when (parts.size) {
-                    1 -> Locale(parts[0])
-                    2 -> Locale(parts[0], parts[1])
-                    3 -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        Locale.Builder()
+                    1 -> Locale.forLanguageTag(parts[0])
+                    2 -> Locale.forLanguageTag(langCode.replace("_", "-"))
+                    3 -> Locale.Builder()
                             .setLanguage(parts[0])
                             .setScript(parts[1])
                             .setRegion(parts[2])
                             .build()
-                    } else {
-                        Locale(parts[0], parts[2])
-                    }
-
                     else -> null
                 }
             }
@@ -360,20 +252,12 @@ private fun parseLocale(langCode: String): Locale? {
     }
 }
 
-// val VALID_LANGUAGE_CODES = setOf("en", "ru", "uk", "be", "zh", "pt", "bg", "he", "cs")
 fun isValidLanguageCode(code: String): Boolean {
-    // return code.lowercase() in VALID_LANGUAGE_CODES // Strict validation
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        try {
-            val locale = Locale.forLanguageTag(code)
-            locale.language.isNotEmpty() && !locale.language.equals("und", ignoreCase = true)
-        } catch (_: Exception) {
-            false
-        }
-    } else {
-        // Fallback to manual ISO 639 check for older Android versions
-        code.length in 2..3 && Locale.getISOLanguages()
-            .any { it.equals(code, ignoreCase = true) }
+    return try {
+        val locale = Locale.forLanguageTag(code)
+        locale.language.isNotEmpty() && !locale.language.equals("und", ignoreCase = true)
+    } catch (_: Exception) {
+        false
     }
 }
 
@@ -385,7 +269,6 @@ fun isValidLanguageCode(code: String): Boolean {
 fun Context.getAppInstaller(): String {
     val appContext = applicationContext
 
-    @Suppress("DEPRECATION")
     val installerPackageName = try {
         val appPackageManager = appContext.packageManager
         val appPackageName = appContext.packageName
@@ -393,6 +276,7 @@ fun Context.getAppInstaller(): String {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
             appPackageManager.getInstallSourceInfo(appPackageName).installingPackageName
         else
+            @Suppress("DEPRECATION")
             appPackageManager.getInstallerPackageName(appPackageName)
     } catch (e: Exception) {
         e.printStackTrace()
@@ -419,24 +303,6 @@ fun Context.getAppInstaller(): String {
  *
  * @param errorCode The network error code string to translate (e.g., "net::ERR_TIMED_OUT")
  * @return Localized string describing the error in user-friendly terms
- *
- * Supported error codes:
- * - net::ERR_FAILED: Generic failure
- * - net::ERR_TIMED_OUT / net::ERR_CONNECTION_TIMED_OUT: Connection timeout
- * - net::ERR_CONNECTION_CLOSED: Connection closed unexpectedly
- * - net::ERR_CONNECTION_RESET: Connection reset by peer
- * - net::ERR_CONNECTION_REFUSED: Connection refused
- * - net::ERR_CONNECTION_FAILED: General connection failure
- * - net::ERR_NAME_NOT_RESOLVED: DNS resolution failed
- * - net::ERR_ADDRESS_UNREACHABLE: Network address unreachable
- * - net::ERR_NETWORK_ACCESS_DENIED: Network access denied
- * - net::ERR_PROXY_CONNECTION_FAILED: Proxy connection issue
- * - net::ERR_INTERNET_DISCONNECTED: No internet connection
- * - net::ERR_TOO_MANY_REDIRECTS: Redirect loop detected
- * - net::ERR_EMPTY_RESPONSE: Server returned empty response
- * - Various SSL-related errors
- * - Various header-related errors
- * - Administrative blocks
  *
  * Example usage:
  * ```
@@ -479,43 +345,19 @@ fun Context.getNetworkErrorString(errorCode: String): String {
 }
 
 /**
- * Checks whether a [View] is currently attached to a window in a backward-compatible way.
- *
- * This is a safer alternative to [View.isAttachedToWindow], which is only available in API 19+ (Android 4.4+).
- * On older devices (API < 19), it checks the view's [View.windowToken] as a fallback.
+ * Checks whether a [View] is currently attached to a window.
  *
  * @return `true` if the view is attached to a window, `false` otherwise.
- *
- * Usage example:
- * ```kotlin
- * if (myView.isAttachedToWindowCompat()) {
- *     // Safe to interact with the view
- * }
- * ```
  */
 fun View.isAttachedToWindowCompat(): Boolean {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-        this.isAttachedToWindow
-    } else {
-        // Fallback for pre-KitKat: Check if the view has a window token
-        this.windowToken != null
-    }
+    return this.isAttachedToWindow
 }
 
 /**
- * Checks if a WebView (or any View) is detached from window safely
- * Works on all Android versions
+ * Checks if a WebView (or any View) is detached from window safely.
  */
 fun View.isDetachedFromWindowCompat(): Boolean {
-    return when {
-        // Modern API (KitKat 4.4+)
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> !isAttachedToWindow
-        // Legacy API fallback
-        else -> {
-            @Suppress("DEPRECATION")
-            windowToken == null || parent == null
-        }
-    }
+    return !isAttachedToWindow
 }
 
 /**
@@ -541,6 +383,6 @@ fun Browser?.isSafeForUse(): Boolean {
 
 fun String.capitalizeFirstLetter(): String {
     return replaceFirstChar {
-        if (it.isLowerCase()) it.titlecase(Locale(App.context.appLang)) else it.toString() // Locale.getDefault()
+        if (it.isLowerCase()) it.titlecase(Locale.forLanguageTag(App.context.appLang.replace("_", "-"))) else it.toString()
     }
 }

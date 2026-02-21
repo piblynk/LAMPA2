@@ -1,11 +1,7 @@
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        maven {
-            url 'https://download.01.org/crosswalk/releases/crosswalk/android/maven2'
-        }
     }
 }
 rootProject.name = "LAMPA"

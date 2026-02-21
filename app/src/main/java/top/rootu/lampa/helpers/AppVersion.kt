@@ -22,7 +22,7 @@ fun getAppVersion(
             packageManager.getPackageInfo(packageName, 0)
         }
         AppVersion(
-            versionName = packageInfo.versionName,
+            versionName = packageInfo.versionName ?: "0.0.0",
             versionNumber = PackageInfoCompat.getLongVersionCode(packageInfo),
         )
     } catch (_: Exception) {

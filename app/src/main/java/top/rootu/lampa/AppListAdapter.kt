@@ -52,7 +52,7 @@ class AppListAdapter internal constructor(
     private fun getItemLabel(position: Int): String {
         val loadLabel = getItem(position).loadLabel(pm)
         var label = ""
-        if (loadLabel == null || loadLabel.toString().also { label = it }.isEmpty()) {
+        if (loadLabel.isEmpty() || loadLabel.toString().also { label = it }.isEmpty()) {
             label = getItemPackage(position)
         }
         return label

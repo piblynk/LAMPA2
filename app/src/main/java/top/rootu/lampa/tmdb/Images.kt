@@ -48,12 +48,11 @@ object Images {
             val request = Request.Builder()
                 .url(link)
                 .build()
-            val client = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                TMDB.startWithQuad9DNS() else TMDB.permissiveOkHttp()
+            val client = TMDB.startWithQuad9DNS()
             client.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                body = response.body()?.string()
-                response.body()?.close()
+                body = response.body?.string()
+                response.body?.close()
             }
         } catch (e: Exception) {
             e.printStackTrace()
