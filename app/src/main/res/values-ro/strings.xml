@@ -14,14 +14,8 @@
     <string name="cancel">Anulează</string>
     <string name="save">Salvează</string>
     <string name="show_menu">Deschide meniul</string>
-    <string name="change_engine">Schimbă browserul</string>
-    <string name="change_engine_title">Alege browserul</string>
     <string name="close_menu_title">Închide acest meniu</string>
     <string name="change_url_title">Schimbă URL-ul Lampa</string>
-    <string name="engine_crosswalk_obsolete">Crosswalk (XWalkLib) - versiune veche</string>
-    <string name="engine_crosswalk">Crosswalk (XWalkLib)</string>
-    <string name="engine_webkit">Android System WebView</string>
-    <string name="engine_active">actual</string>
     <string name="menu_title">Meniu opțiuni</string>
     <string name="change_url_press_back">Pentru a schimba adresa, apasă lung butonul "Înapoi"\nsau apasă butonul "Meniu"</string>
     <string name="error_app_not_found">Nu s-au găsit aplicații compatibile</string>
@@ -41,27 +35,7 @@
     <string name="update_new_version">S-a găsit o versiune nouă</string>
     <string name="update_loading">Se descarcă actualizarea…</string>
     <string name="use_as_default">Reține alegerea</string>
-    <string name="startup_not_found_title">Serviciul Crosswalk Project nu a fost găsit</string>
-    <string name="startup_not_found_message">APP_NAME necesită serviciul Crosswalk Project pentru a funcționa. Te rugăm să îl instalezi mai întâi, apoi să repornești APP_NAME.</string>
-    <string name="startup_older_version_title">Este necesară o versiune nouă a Crosswalk Project Service</string>
-    <string name="startup_older_version_message">Versiunea Crosswalk Project Service de pe acest sistem trebuie actualizată. Te rugăm să o instalezi din magazinul de aplicații, apoi să repornești APP_NAME.</string>
-    <string name="startup_newer_version_title">Crosswalk Project Service incompatibil</string>
-    <string name="startup_newer_version_message">APP_NAME nu este compatibil cu versiunea instalată a serviciului Crosswalk Project.</string>
-    <string name="startup_architecture_mismatch_title">Nepotrivire a arhitecturii CPU</string>
-    <string name="startup_architecture_mismatch_message">Crosswalk Project Service trebuie actualizat pentru a se potrivi cu arhitectura CPU a dispozitivului. Te rugăm să îl instalezi, apoi să repornești APP_NAME.</string>
-    <string name="crosswalk_install_title">Instalare Crosswalk Project</string>
     <string name="download_failed_message">Descărcarea a eșuat</string>
-    <string name="download_progress_message">Se descarcă Crosswalk Project Service de pe serverul la distanță…</string>
-    <string name="select_store_message">Te rugăm să instalezi Crosswalk Project Service din STORE_NAME</string>
-    <string name="unsupported_store_message">Serviciul Crosswalk nu a fost găsit pe dispozitiv. Pentru ca aplicația să funcționeze, trebuie să îl instalezi manual descărcându-l de la această adresă (https://github.com/lampa-app/LAMPA/releases/tag/1.1.0).</string>
-    <string name="xwalk_download_crosswalk">Descărcare directă</string>
-    <string name="xwalk_get_crosswalk">Obține Crosswalk</string>
-    <string name="xwalk_cancel">Anulează</string>
-    <string name="xwalk_continue">Continuă</string>
-    <string name="xwalk_close">Închide</string>
-    <string name="xwalk_retry">Reîncearcă</string>
-    <string name="xwalk_market_crosswalk" translatable="false">Google Play</string>
-    <string name="xwalk_apk_link">https://github.com/lampa-app/LAMPA/releases/download/1.1.0/XWalkRuntimeLib_%s.apk</string>
     <!--Search-->
     <string name="open_lampa">deschide lampa</string>
     <string name="open_settings">deschide setările lampa</string>
@@ -83,7 +57,6 @@
     <string name="update_chan_title">Actualizează canalele din Ecranul Principal TV</string>
     <string name="update_home_title">Actualizează recomandările TV</string>
     <string name="backup_restore_title">Backup și restaurare</string>
-    <string name="backup_all">Copie de rezervă</string>
     <string name="backup_all_title">Creează o copie de rezervă a tuturor setărilor</string>
     <string name="restore_app_title">Restaurează preferințele aplicației</string>
     <string name="restore_storage_title">Restaurează setările Lampa</string>
@@ -109,7 +82,6 @@
     <!-- Net Errors -->
     <string name="net_error_failed">Solicitarea de rețea a eșuat</string>
     <string name="net_error_timed_out">Conexiunea a expirat</string>
-    <string name="net_error_connection_timed_out">Conexiunea a expirat</string>
     <string name="net_error_connection_closed">Conexiune închisă</string>
     <string name="net_error_connection_reset">Conexiune resetată</string>
     <string name="net_error_connection_refused">Conexiune refuzată</string>
