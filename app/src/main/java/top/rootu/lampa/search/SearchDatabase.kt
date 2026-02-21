@@ -97,7 +97,6 @@ object SearchDatabase {
      * @param list The list of [Entity] objects.
      * @return A [Cursor] containing the search results.
      */
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun getMatrix(list: List<Entity>): Cursor {
         val matrixCursor = MatrixCursor(SearchProvider.queryProjection)
         try {
@@ -116,7 +115,6 @@ object SearchDatabase {
      * @param ent The [Entity] object.
      * @return An array of values representing the row.
      */
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun convertEntityToRow(ent: Entity): Array<Any> {
         val info = mutableListOf<String>()
 
@@ -153,38 +151,25 @@ object SearchDatabase {
         val poster = ent.backdrop_path ?: ent.poster_path ?: getDefaultPosterUri()
 
         // Build the row based on the Android version
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            arrayOf(
-                ent.id ?: "", // ID
-                ent.title ?: "", // Name
-                info.joinToString(" · "), // Description
-                poster, // Icon
-                "video/mp4", // Data type
-                false, // Is live
-                1920, // Video width
-                1080, // Video height
-                "2.0", // Audio channels
-                "$0", // Purchase price
-                "$0", // Rental price
-                Rating.RATING_5_STARS, // Rating style
-                ent.vote_average?.div(2) ?: 0.0, // Rating score
-                ent.year ?: "", // Production year
-                ent.runtime?.toLong()?.times(60000L) ?: 0, // Duration
-                "GLOBALSEARCH", // Intent action
-                ent.id ?: "", // Data ID
-                ent.media_type ?: "" // Extra data
-            )
-        } else {
-            // KitKat and below
-            arrayOf(
-                ent.id ?: "", // ID
-                ent.title ?: "", // Name
-                info.joinToString(" · "), // Description
-                poster, // Icon
-                "GLOBALSEARCH", // Intent action
-                ent.id ?: "", // Data ID
-                ent.media_type ?: "" // Extra data
-            )
-        }
+        return arrayOf(
+            ent.id ?: "", // ID
+            ent.title ?: "", // Name
+            info.joinToString(" · "), // Description
+            poster, // Icon
+            "video/mp4", // Data type
+            false, // Is live
+            1920, // Video width
+            1080, // Video height
+            "2.0", // Audio channels
+            "$0", // Purchase price
+            "$0", // Rental price
+            Rating.RATING_5_STARS, // Rating style
+            ent.vote_average?.div(2) ?: 0.0, // Rating score
+            ent.year ?: "", // Production year
+            ent.runtime?.toLong()?.times(60000L) ?: 0, // Duration
+            "GLOBALSEARCH", // Intent action
+            ent.id ?: "", // Data ID
+            ent.media_type ?: "" // Extra data
+        )
     }
 }

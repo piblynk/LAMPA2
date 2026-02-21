@@ -20,7 +20,6 @@ import top.rootu.lampa.sched.Scheduler
 
 private const val TAG: String = "HomeWatch"
 
-@RequiresApi(Build.VERSION_CODES.O)
 class HomeWatch() : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

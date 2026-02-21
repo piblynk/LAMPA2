@@ -16,7 +16,6 @@ object LampaChannels {
     private val lock = Any()
     private const val MAX_RECS_CAP = 30
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun update(sync: Boolean = true) {
         if (!isTvContentProviderAvailable) return
 
@@ -105,7 +104,6 @@ object LampaChannels {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun updateRecsChannel() {
         if (!isTvContentProviderAvailable) return
         synchronized(lock) {
@@ -116,7 +114,6 @@ object LampaChannels {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun updateChanByName(name: String) {
         if (!isTvContentProviderAvailable) return
         synchronized(lock) {

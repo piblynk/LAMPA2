@@ -67,11 +67,7 @@ class ImgArrayAdapter(
         val drawableRes = images.getOrNull(position) ?: return
         val drawable = ContextCompat.getDrawable(context, drawableRes)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
-        } else {
-            setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-        }
+        setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
         compoundDrawablePadding = drawablePaddingPx
         textSize = 18f
         maxLines = 2

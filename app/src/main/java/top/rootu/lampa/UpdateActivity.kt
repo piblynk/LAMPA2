@@ -107,10 +107,7 @@ class UpdateActivity : BaseActivity() {
         try {
             Updater.installNewVersion { prc ->
                 Handler(Looper.getMainLooper()).post {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                        progressBar.setProgress(prc, true)
-                    else
-                        progressBar.progress = prc
+                    progressBar.setProgress(prc, true)
                     findViewById<TextView>(R.id.tvUpdatePrc).text = "$prc%"
                 }
             }

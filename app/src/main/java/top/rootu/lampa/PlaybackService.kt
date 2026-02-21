@@ -43,16 +43,14 @@ class PlaybackService : Service() {
     }
 
     private fun ensureChannel(): String {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            if (nm.getNotificationChannel(CHANNEL_ID) == null) {
-                val channel = NotificationChannel(
-                    CHANNEL_ID,
-                    getString(R.string.keep_connection_channel),
-                    NotificationManager.IMPORTANCE_LOW
-                ).apply { setShowBadge(false) }
-                nm.createNotificationChannel(channel)
-            }
+        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (nm.getNotificationChannel(CHANNEL_ID) == null) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                getString(R.string.keep_connection_channel),
+                NotificationManager.IMPORTANCE_LOW
+            ).apply { setShowBadge(false) }
+            nm.createNotificationChannel(channel)
         }
         return CHANNEL_ID
     }
@@ -65,10 +63,7 @@ class PlaybackService : Service() {
         fun start(context: Context) {
             try {
                 val intent = Intent(context, PlaybackService::class.java)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                    context.startForegroundService(intent)
-                else
-                    context.startService(intent)
+                context.startForegroundService(intent)
             } catch (e: Exception) {
                 debugLog(TAG, "start failed: ${e.message}")
             }

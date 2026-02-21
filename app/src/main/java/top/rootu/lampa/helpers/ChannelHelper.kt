@@ -34,7 +34,6 @@ val Channel.data: String
 
 object ChannelHelper {
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private val CHANNELS_PROJECTION = arrayOf(
         TvContractCompat.Channels._ID,
         TvContract.Channels.COLUMN_DISPLAY_NAME,
@@ -48,7 +47,6 @@ object ChannelHelper {
      * @param name The internal name of the channel.
      * @param displayName The display name of the channel.
      */
-    @RequiresApi(Build.VERSION_CODES.O)
     fun add(name: String, displayName: String) {
         val channel = get(name)
         if (channel != null)
@@ -88,7 +86,6 @@ object ChannelHelper {
      * @param name The internal name of the channel.
      * @return The [Channel] object, or `null` if not found.
      */
-    @RequiresApi(Build.VERSION_CODES.O)
     fun get(name: String): Channel? {
         val cursor = App.context.contentResolver.query(
             TvContractCompat.Channels.CONTENT_URI,
@@ -124,7 +121,6 @@ object ChannelHelper {
      *
      * @return A list of [Channel] objects.
      */
-    @RequiresApi(Build.VERSION_CODES.O)
     fun list(): List<Channel> {
         val ch = mutableListOf<Channel>()
 
@@ -146,7 +142,6 @@ object ChannelHelper {
         return ch
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getChanByID(channelId: Long): String? {
         val cursor = App.context.contentResolver.query(
             TvContractCompat.Channels.CONTENT_URI,
@@ -174,7 +169,6 @@ object ChannelHelper {
      * @param resourceId The ID of the drawable resource.
      * @return The [Bitmap] object.
      */
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun convertToBitmap(context: Context, resourceId: Int): Bitmap {
         val drawable: Drawable? = AppCompatResources.getDrawable(context, resourceId)
         if (drawable is VectorDrawable) {

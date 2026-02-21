@@ -90,18 +90,12 @@ object AppAttestation {
         return try {
             val pm = context.packageManager
             val packageName = context.packageName
-            val certBytes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val certBytes =
                 pm.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
                     .signingInfo
                     ?.apkContentsSigners
                     ?.firstOrNull()
                     ?.toByteArray()
-            } else {
-                pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
-                    .signatures
-                    ?.firstOrNull()
-                    ?.toByteArray()
-            } ?: return null
 
             val digest = MessageDigest.getInstance("SHA-256").digest(certBytes)
             formatSha256Hex(digest)

@@ -224,9 +224,7 @@ public class BaseSpeechRecognitionEngine implements SpeechRecognitionEngine {
             intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, mCallingPackage);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, mPreferOffline);
-        }
+        intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, mPreferOffline);
 //        Log.d("*****", "Recoginizer intent: " + intent.toUri(0));
         try {
             mSpeechRecognizer.startListening(intent);
@@ -252,21 +250,7 @@ public class BaseSpeechRecognitionEngine implements SpeechRecognitionEngine {
         if (lang.isEmpty()) {
             return "en-US"; // Handle null or empty language
         }
-        if (!lang.contains("-")) if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            lang = mLocale.toLanguageTag();
-        } else {
-            Map<String, String> languageToLocaleMap = new HashMap<>();
-            languageToLocaleMap.put("ru", "ru-RU");
-            languageToLocaleMap.put("en", "en-US");
-            languageToLocaleMap.put("be", "be-BY");
-            languageToLocaleMap.put("uk", "uk-UA");
-            languageToLocaleMap.put("zh", "zh-CN");
-            languageToLocaleMap.put("bg", "bg-BG");
-            languageToLocaleMap.put("pt", "pt-PT");
-            languageToLocaleMap.put("cs", "cs-CZ");
-            lang = languageToLocaleMap.getOrDefault(lang, lang);
-        }
-        return lang;
+        return mLocale.toLanguageTag();
     }
 
     @Override

@@ -41,12 +41,10 @@ public class BaseTextToSpeechEngine implements TextToSpeechEngine {
         mTextToSpeech.setPitch(mTtsPitch);
         mTextToSpeech.setSpeechRate(mTtsRate);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (voice == null) {
-                voice = mTextToSpeech.getDefaultVoice();
-            }
-            mTextToSpeech.setVoice(voice);
+        if (voice == null) {
+            voice = mTextToSpeech.getDefaultVoice();
         }
+        mTextToSpeech.setVoice(voice);
     }
 
     @Override
@@ -78,16 +76,9 @@ public class BaseTextToSpeechEngine implements TextToSpeechEngine {
             mTtsCallbacks.put(utteranceId, callback);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final Bundle params = new Bundle();
-            params.putString(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(mAudioStream));
-            mTextToSpeech.speak(message, mTtsQueueMode, params, utteranceId);
-        } else {
-            final HashMap<String, String> params = new HashMap<>();
-            params.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(mAudioStream));
-            params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId);
-            mTextToSpeech.speak(message, mTtsQueueMode, params);
-        }
+        final Bundle params = new Bundle();
+        params.putString(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(mAudioStream));
+        mTextToSpeech.speak(message, mTtsQueueMode, params, utteranceId);
     }
 
     @Override
@@ -139,29 +130,19 @@ public class BaseTextToSpeechEngine implements TextToSpeechEngine {
     @Override
     public void setVoice(Voice voice) {
         this.voice = voice;
-        if (mTextToSpeech != null && Build.VERSION.SDK_INT >= 21) {
-            mTextToSpeech.setVoice(voice);
-        }
+        mTextToSpeech.setVoice(voice);
     }
 
     @Override
     public List<Voice> getSupportedVoices() {
-        if (mTextToSpeech != null && Build.VERSION.SDK_INT >= 23) {
-            Set<Voice> voices = mTextToSpeech.getVoices();
-            ArrayList<Voice> voicesList = new ArrayList<>(voices.size());
-            voicesList.addAll(voices);
-            return voicesList;
-        }
-
-        return new ArrayList<>(1);
+        Set<Voice> voices = mTextToSpeech.getVoices();
+        ArrayList<Voice> voicesList = new ArrayList<>(voices.size());
+        voicesList.addAll(voices);
+        return voicesList;
     }
 
     @Override
     public Voice getCurrentVoice() {
-        if (mTextToSpeech != null && Build.VERSION.SDK_INT >= 23) {
-            return mTextToSpeech.getVoice();
-        }
-
-        return null;
+        return mTextToSpeech.getVoice();
     }
 }
