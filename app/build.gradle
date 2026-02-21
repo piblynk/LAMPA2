@@ -112,24 +112,17 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    def actKtxVer = '1.9.0'
-    implementation "androidx.activity:activity-ktx:$actKtxVer"
-    def appCompatVer = '1.7.0'
-    implementation "androidx.appcompat:appcompat:$appCompatVer"
-    def constraintVersion = '2.2.0'
-    implementation "androidx.constraintlayout:constraintlayout:${constraintVersion}"
-    def coreKtxVer = '1.15.0'
-    implementation "androidx.core:core-ktx:$coreKtxVer"
-    def lifecycleVersion = '2.8.7'
-    implementation "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+    implementation "androidx.activity:activity-ktx:1.12.4"
+    implementation "androidx.appcompat:appcompat:1.7.1"
+    implementation "androidx.constraintlayout:constraintlayout:2.2.1"
+    implementation "androidx.core:core-ktx:1.17.0"
+    implementation "androidx.lifecycle:lifecycle-process:2.10.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.10.0"
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.recommendation:recommendation:1.0.0'
-    implementation 'androidx.tvprovider:tvprovider:1.0.0'
-    def vectordrawableVersion = '1.2.0'
-    implementation "androidx.vectordrawable:vectordrawable:${vectordrawableVersion}"
-    def webkitVersion = '1.12.1'
-    implementation "androidx.webkit:webkit:$webkitVersion"
+    implementation 'androidx.tvprovider:tvprovider:1.1.0'
+    implementation "androidx.vectordrawable:vectordrawable:1.2.0"
+    implementation "androidx.webkit:webkit:1.15.0"
     def glideVersion = '5.0.5'
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
     implementation("com.github.bumptech.glide:okhttp3-integration:${glideVersion}") {
@@ -138,20 +131,16 @@ dependencies {
     }
     ksp "com.github.bumptech.glide:ksp:${glideVersion}"
     implementation "com.github.bumptech.glide:annotations:${glideVersion}"
-    def muiVersion = '1.12.0'
-    implementation "com.google.android.material:material:${muiVersion}"
-    def okhttpVersion = '4.12.0'
-    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
-    implementation "com.squareup.okhttp3:okhttp-dnsoverhttps:$okhttpVersion"
+    implementation "com.google.android.material:material:1.13.0"
+    implementation "com.squareup.okhttp3:okhttp:5.3.2"
+    implementation "com.squareup.okhttp3:okhttp-dnsoverhttps:5.3.2"
     implementation 'org.brotli:dec:0.1.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kp_version"
-    def coroutinesVersion = '1.9.0'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-    implementation 'com.google.code.gson:gson:2.11.0'
-    def lottieVersion = '6.6.2'
-    implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
+    implementation 'com.google.code.gson:gson:2.13.2'
+    implementation "com.airbnb.android:lottie:6.7.1"
     implementation 'info.guardianproject.netcipher:netcipher:2.1.0'
     implementation 'junit:junit:4.13.2'
     implementation 'org.conscrypt:conscrypt-android:2.5.3'
-    implementation 'org.mozilla:rhino:1.8.0'
+    implementation 'org.mozilla:rhino:1.9.1'
 }
