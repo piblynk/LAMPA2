@@ -1,7 +1,6 @@
 package top.rootu.lampa.helpers
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.text.Spanned
 import androidx.core.content.FileProvider

@@ -1,5 +1,7 @@
 package com.btr.proxy.selector.pac;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,8 +14,6 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.util.Log;
 
 import top.rootu.lampa.net.HttpHelper;
 

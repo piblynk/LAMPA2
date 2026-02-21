@@ -1,8 +1,6 @@
 package top.rootu.lampa
 
-import android.annotation.SuppressLint
 import android.app.SearchManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.DialogInterface
 import android.content.DialogInterface.BUTTON_NEGATIVE
@@ -11,21 +9,18 @@ import android.content.DialogInterface.BUTTON_POSITIVE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
-import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Build.VERSION
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.speech.SpeechRecognizer
 import android.util.Log
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
@@ -33,7 +28,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -60,14 +54,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import net.gotev.speech.GoogleVoiceTypingDisabledException
-import net.gotev.speech.Logger
 import net.gotev.speech.Speech
 import net.gotev.speech.SpeechDelegate
-import net.gotev.speech.SpeechRecognitionNotAvailable
-import net.gotev.speech.SpeechUtil
 import net.gotev.speech.ui.SpeechProgressView
-import org.json.JSONException
 import org.json.JSONObject
 import top.rootu.lampa.browser.Browser
 import top.rootu.lampa.browser.SysView
@@ -78,9 +67,6 @@ import top.rootu.lampa.helpers.Backup
 import top.rootu.lampa.helpers.Backup.backupSettings
 import top.rootu.lampa.helpers.Backup.loadFromBackup
 import top.rootu.lampa.helpers.Backup.validateStorageBackup
-import top.rootu.lampa.helpers.Helpers
-import top.rootu.lampa.helpers.Helpers.debugLogIntentData
-import top.rootu.lampa.helpers.Helpers.dp2px
 import top.rootu.lampa.helpers.Helpers.getJson
 import top.rootu.lampa.helpers.Helpers.isAndroidTV
 import top.rootu.lampa.helpers.Helpers.isTvContentProviderAvailable
@@ -92,7 +78,6 @@ import top.rootu.lampa.helpers.Prefs
 import top.rootu.lampa.helpers.Prefs.FAV
 import top.rootu.lampa.helpers.Prefs.addUrlHistory
 import top.rootu.lampa.helpers.Prefs.appBrowser
-import top.rootu.lampa.helpers.Prefs.appLang
 import top.rootu.lampa.helpers.Prefs.appPlayer
 import top.rootu.lampa.helpers.Prefs.appPrefs
 import top.rootu.lampa.helpers.Prefs.appUrl
@@ -114,9 +99,7 @@ import top.rootu.lampa.helpers.Prefs.urlHistory
 import top.rootu.lampa.helpers.Prefs.viewToRemove
 import top.rootu.lampa.helpers.Prefs.wathToAdd
 import top.rootu.lampa.helpers.Prefs.wathToRemove
-import top.rootu.lampa.helpers.getAppVersion
 import top.rootu.lampa.helpers.hideSystemUI
-import top.rootu.lampa.helpers.isAmazonDev
 import top.rootu.lampa.helpers.isSafeForUse
 import top.rootu.lampa.helpers.isTvBox
 import top.rootu.lampa.models.LAMPA_CARD_KEY

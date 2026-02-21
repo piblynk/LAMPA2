@@ -3,8 +3,8 @@ package net.gotev.speech.engine;
 import android.content.Context;
 import android.speech.RecognitionListener;
 
-import net.gotev.speech.SpeechDelegate;
 import net.gotev.speech.GoogleVoiceTypingDisabledException;
+import net.gotev.speech.SpeechDelegate;
 import net.gotev.speech.SpeechRecognitionNotAvailable;
 import net.gotev.speech.ui.SpeechProgressView;
 

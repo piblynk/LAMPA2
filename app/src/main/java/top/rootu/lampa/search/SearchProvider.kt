@@ -7,10 +7,8 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
-import android.os.Build
 import android.provider.BaseColumns
 import android.util.Log
-import androidx.annotation.RequiresApi
 import java.io.IOException
 
 class SearchProvider : ContentProvider() {

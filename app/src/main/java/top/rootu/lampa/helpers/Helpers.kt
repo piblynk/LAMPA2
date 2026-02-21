@@ -6,7 +6,6 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.tv.TvContract
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -16,7 +15,6 @@ import android.os.Parcelable
 import android.util.Log
 import android.util.TypedValue
 import androidx.annotation.RequiresApi
-import androidx.webkit.WebViewCompat
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement

@@ -1,7 +1,7 @@
 package top.rootu.lampa.search
 
 import top.rootu.lampa.tmdb.models.entity.Entity
-import java.util.*
+import java.util.Locale
 import kotlin.math.min
 
 object Utils {

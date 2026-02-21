@@ -1,17 +1,22 @@
 package net.gotev.speech.engine;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
 
+import net.gotev.speech.Logger;
 import net.gotev.speech.TextToSpeechCallback;
 import net.gotev.speech.TtsProgressListener;
-import net.gotev.speech.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 public class BaseTextToSpeechEngine implements TextToSpeechEngine {
 

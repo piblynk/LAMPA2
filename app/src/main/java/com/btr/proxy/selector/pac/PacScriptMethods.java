@@ -1,5 +1,7 @@
 package com.btr.proxy.selector.pac;
 
+import android.util.Log;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -12,8 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
-
-import android.util.Log;
 
 /***************************************************************************
  * Implementation of PAC JavaScript functions.

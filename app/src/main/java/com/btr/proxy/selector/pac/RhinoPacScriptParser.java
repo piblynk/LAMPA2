@@ -1,13 +1,13 @@
 package com.btr.proxy.selector.pac;
 
-import java.util.Calendar;
+import android.util.Log;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
-import android.util.Log;
+import java.util.Calendar;
 
 /*****************************************************************************
  * PAC parser using the Rhino JavaScript engine.<br/>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Environment
 import android.util.Log
+import androidx.core.content.edit
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.xml.sax.InputSource
@@ -13,10 +14,10 @@ import top.rootu.lampa.helpers.Prefs.defPrefs
 import java.io.File
 import java.io.StringReader
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.xml.parsers.DocumentBuilderFactory
-import androidx.core.content.edit
 
 object Backup {
     private val isOperationInProgress = AtomicBoolean(false)

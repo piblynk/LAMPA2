@@ -7,6 +7,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import top.rootu.lampa.MainActivity.Companion.VIDEO_COMPLETED_DURATION_MAX_PERCENTAGE
+import top.rootu.lampa.PlayerStateManager.Companion.MAX_DAYS_CACHE
 import top.rootu.lampa.helpers.Helpers.getJson
 import top.rootu.lampa.helpers.Prefs.lastPlayedPrefs
 import top.rootu.lampa.models.LAMPA_CARD_KEY
@@ -14,7 +15,6 @@ import top.rootu.lampa.models.LampaCard
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
-import kotlin.text.isNotEmpty
 
 /**
  * Manages playback states for media items, including current position, playlist, and other metadata.

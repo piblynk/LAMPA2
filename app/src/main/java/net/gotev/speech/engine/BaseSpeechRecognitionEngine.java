@@ -2,29 +2,25 @@ package net.gotev.speech.engine;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
 import net.gotev.speech.DelayedOperation;
-import net.gotev.speech.SpeechDelegate;
 import net.gotev.speech.GoogleVoiceTypingDisabledException;
+import net.gotev.speech.Logger;
+import net.gotev.speech.SpeechDelegate;
 import net.gotev.speech.SpeechRecognitionException;
 import net.gotev.speech.SpeechRecognitionNotAvailable;
-import net.gotev.speech.Logger;
 import net.gotev.speech.ui.SpeechProgressView;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class BaseSpeechRecognitionEngine implements SpeechRecognitionEngine {
     private static final String LOG_TAG = BaseSpeechRecognitionEngine.class.getSimpleName();
