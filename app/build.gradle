@@ -163,7 +163,7 @@ dependencies {
     def webkitVersion = '1.8.0' // 1.8.0 - last api16 compatible
     //noinspection GradleDependency
     implementation "androidx.webkit:webkit:$webkitVersion"
-    def glideVersion = '5.0.5' // glide stable
+    def glideVersion = '5.0.9'
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
     implementation("com.github.bumptech.glide:okhttp3-integration:${glideVersion}") {
         exclude group: 'glide-parent'
@@ -174,10 +174,8 @@ dependencies {
     def muiVersion = '1.11.0' // 1.11.0 - last api16 compatible
     //noinspection GradleDependency
     implementation "com.google.android.material:material:${muiVersion}"
-    def okhttpVersion = '3.12.13' // okhttp 3.12.13 - latest version for API < 21
-    //noinspection GradleDependency
+    def okhttpVersion = '5.5.0'
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
-    //noinspection GradleDependency
     implementation "com.squareup.okhttp3:okhttp-dnsoverhttps:$okhttpVersion"
     implementation 'org.brotli:dec:0.1.2'
     //noinspection GradleDependency
