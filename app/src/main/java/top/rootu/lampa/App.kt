@@ -1,5 +1,6 @@
 package top.rootu.lampa
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
@@ -9,7 +10,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.ProcessLifecycleOwner
-import androidx.multidex.MultiDexApplication
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -22,7 +22,7 @@ import top.rootu.lampa.helpers.handleUncaughtException
 import top.rootu.lampa.helpers.setLanguage
 import top.rootu.lampa.tmdb.TMDB
 
-class App : MultiDexApplication() {
+class App : Application() {
 
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 

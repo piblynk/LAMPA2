@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk tools:overrideLibrary="org.xwalk.core, net.gotev.speech, androidx.recommendation, androidx.tvprovider" /> <!-- use older sdk -->
+    <uses-sdk tools:overrideLibrary="net.gotev.speech, androidx.recommendation, androidx.tvprovider" /> <!-- use older sdk -->
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -83,8 +83,7 @@
         android:screenOrientation="userLandscape"
         android:supportsRtl="true"
         android:theme="@style/Theme.LAMPA"
-        tools:ignore="RtlEnabled"
-        tools:targetApi="n">
+        tools:ignore="RtlEnabled">
         <activity
             android:name=".CrashActivity"
             android:exported="false" />
@@ -189,9 +188,6 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name=".sched.ContentAlarmManager"
-            android:enabled="true" />
         <service
             android:name=".PlaybackService"
             android:enabled="true"

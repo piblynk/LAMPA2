@@ -130,18 +130,6 @@ object Helpers {
         }
     }
 
-    fun isWebViewAvailable(context: Context): Boolean {
-        return try {
-            context.packageManager.getApplicationInfo(
-                WebViewCompat.getCurrentWebViewPackage(
-                    context
-                )?.packageName!!, 0
-            ).enabled
-        } catch (_: Exception) {
-            Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT
-        }
-    }
-
     // Helper function to serialize LampaCard to JSON
     private fun serializeCardToJson(card: LampaCard): String? {
         return try {
