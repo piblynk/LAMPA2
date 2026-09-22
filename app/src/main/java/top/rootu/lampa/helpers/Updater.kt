@@ -117,13 +117,10 @@ object Updater {
         return 0
     }
 
-    // Offer only a 1.x release that is actually newer than the installed build.
     private fun isNewerVersion(
         remote: String,
         local: String = BuildConfig.VERSION_NAME
     ): Boolean {
-        val remoteMajor = parseVersion(remote).firstOrNull() ?: 0
-        if (remoteMajor >= 2) return false
         return compareVersions(remote, local) > 0
     }
 
