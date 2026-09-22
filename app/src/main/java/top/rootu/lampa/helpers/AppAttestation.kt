@@ -2,7 +2,6 @@ package top.rootu.lampa.helpers
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.os.Build
 import top.rootu.lampa.BuildConfig
 import java.net.URI
 import java.security.MessageDigest

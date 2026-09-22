@@ -4,8 +4,6 @@ import android.app.SearchManager
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.media.Rating
-import android.os.Build
-import androidx.annotation.RequiresApi
 import top.rootu.lampa.App
 import top.rootu.lampa.R
 import top.rootu.lampa.helpers.Helpers.getDefaultPosterUri

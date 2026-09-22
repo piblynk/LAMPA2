@@ -18,7 +18,9 @@ import net.gotev.speech.engine.BaseTextToSpeechEngine;
 import net.gotev.speech.engine.TextToSpeechEngine;
 import net.gotev.speech.ui.SpeechProgressView;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Helper class to easily work with Android speech recognition.

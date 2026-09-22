@@ -1,7 +1,6 @@
 package top.rootu.lampa.tmdb
 
 import android.net.Uri
-import android.os.Build
 import androidx.core.net.toUri
 import okhttp3.Request
 import top.rootu.lampa.App

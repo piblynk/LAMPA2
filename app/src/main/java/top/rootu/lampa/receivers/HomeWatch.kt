@@ -4,9 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.media.tv.TvContract
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.tvprovider.media.tv.TvContractCompat
 import top.rootu.lampa.App
 import top.rootu.lampa.BuildConfig

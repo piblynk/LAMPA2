@@ -14,7 +14,6 @@ import top.rootu.lampa.models.LampaCard
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
-import kotlin.text.isNotEmpty
 
 /**
  * Manages playback states for media items, including current position, playlist, and other metadata.

@@ -2,8 +2,6 @@ package top.rootu.lampa.net;
 
 import android.annotation.SuppressLint;
 import android.net.SSLCertificateSocketFactory;
-import android.os.Build;
-import android.util.Log;
 
 import org.apache.http.conn.scheme.LayeredSocketFactory;
 import org.apache.http.conn.ssl.StrictHostnameVerifier;

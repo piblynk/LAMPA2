@@ -9,8 +9,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 
-//import org.apache.commons.io.IOUtils;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -23,12 +21,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.SequenceInputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+
+//import org.apache.commons.io.IOUtils;
 
 public class FileHelpers {
     private static final String TAG = FileHelpers.class.getSimpleName();

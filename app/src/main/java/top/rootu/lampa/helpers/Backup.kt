@@ -13,7 +13,8 @@ import top.rootu.lampa.helpers.Prefs.defPrefs
 import java.io.File
 import java.io.StringReader
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.xml.parsers.DocumentBuilderFactory
 import androidx.core.content.edit
