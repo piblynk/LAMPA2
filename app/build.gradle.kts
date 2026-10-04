@@ -59,6 +59,16 @@ android {
     }
 
     signingConfigs {
+        getByName("debug") {
+            val localDebugKeystore = file("keystore/debug.keystore")
+            if (localDebugKeystore.exists()) {
+                storeFile = localDebugKeystore
+                storePassword = "android"
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+            }
+        }
+
         create("release") {
             val keystoreProperties = Properties()
             val keystorePropsFile = file("keystore/keystore_config")
@@ -88,7 +98,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+            val releaseSigning = signingConfigs.getByName("release")
+            if (releaseSigning.storeFile != null) {
+                signingConfig = releaseSigning
+            }
         }
     }
 
