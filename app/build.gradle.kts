@@ -1,3 +1,4 @@
+import org.gradle.internal.impldep.com.esotericsoftware.minlog.Log
 import java.util.Properties
 
 plugins {
@@ -32,11 +33,10 @@ fun getRepoId(project: Project): String {
         val url = project.providers.exec {
             commandLine("git", "remote", "get-url", "origin")
         }.standardOutput.asText.get().trim()
-
         val matcher = Regex("""github\.com[:/]([^/]+/[^/.]+)""").find(url)
-        matcher?.groupValues?.get(1) ?: "lampa-app/LAMPA"
+        matcher?.groupValues?.get(1) ?: "piblynk/LAMPA2"
     } catch (ignored: Exception) {
-        "lampa-app/LAMPA"
+        "piblynk/LAMPA2"
     }
 }
 

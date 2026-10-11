@@ -77,8 +77,9 @@ object AppAttestation {
     fun shouldInjectClientHeaders(url: String, lampaUrl: String): Boolean {
         val uri = parseHttpUri(url) ?: return false
         val host = uri.host ?: return false
-        if (isOwnHost(host, lampaUrl)) return true
-        return isParserApiPath(uri.path ?: return false)
+//        if (isOwnHost(host, lampaUrl)) return true
+//        return isParserApiPath(uri.path ?: return false)
+        return isOwnHost(host, lampaUrl)
     }
 
     @Suppress("DEPRECATION")
